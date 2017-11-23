@@ -1365,6 +1365,19 @@ The
 .BR bpf ()
 system call is Linux-specific.
 .SH NOTES
+The
+.BR bpf ()
+system call is only available if the kernel has been compiled with the
+.BR CONFIG_BPF_SYSCALL
+option. Furthermore, commands
+.BR BPF_PROG_ATTACH ,
+.BR BPF_PROG_DETACH
+and
+.BR BPF_PROG_QUERY
+are only available if option
+.BR CONFIG_CGROUP_BPF
+was selected.
+.PP
 In the current implementation, all
 .BR bpf ()
 commands require the caller to have the
