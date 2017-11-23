@@ -152,31 +152,70 @@ The value provided in
 .I cmd
 is one of the following:
 .TP
-.B BPF_MAP_CREATE
+.BR BPF_MAP_CREATE
 Create a map and return a file descriptor that refers to the map.
 The close-on-exec file descriptor flag (see
 .BR fcntl (2))
 is automatically enabled for the new file descriptor.
 .TP
-.B BPF_MAP_LOOKUP_ELEM
+.BR BPF_MAP_LOOKUP_ELEM
 Look up an element by key in a specified map and return its value.
 .TP
-.B BPF_MAP_UPDATE_ELEM
+.BR BPF_MAP_UPDATE_ELEM
 Create or update an element (key/value pair) in a specified map.
 .TP
-.B BPF_MAP_DELETE_ELEM
+.BR BPF_MAP_DELETE_ELEM
 Look up and delete an element by key in a specified map.
 .TP
-.B BPF_MAP_GET_NEXT_KEY
+.BR BPF_MAP_GET_NEXT_KEY
 Look up an element by key in a specified map and return the key
 of the next element.
 .TP
-.B BPF_PROG_LOAD
+.BR BPF_PROG_LOAD
 Verify and load an eBPF program,
 returning a new file descriptor associated with the program.
 The close-on-exec file descriptor flag (see
 .BR fcntl (2))
 is automatically enabled for the new file descriptor.
+.TP
+.BR BPF_OBJ_PIN " (since Linux 4.4)
+[To be documented]
+.TP
+.BR BPF_OBJ_GET " (since Linux 4.4)
+[To be documented]
+.TP
+.BR BPF_PROG_ATTACH " (since Linux 4.10)
+[To be documented]
+.TP
+.BR BPF_PROG_DETACH " (since Linux 4.10)
+[To be documented]
+.TP
+.BR BPF_PROG_TEST_RUN " (since Linux 4.12)
+[To be documented]
+.TP
+.BR BPF_PROG_GET_NEXT_ID " (since Linux 4.13)
+[To be documented]
+.TP
+.BR BPF_MAP_GET_NEXT_ID " (since Linux 4.13)
+[To be documented]
+.TP
+.BR BPF_PROG_GET_FD_BY_ID " (since Linux 4.13)
+[To be documented]
+.TP
+.BR BPF_MAP_GET_FD_BY_ID " (since Linux 4.13)
+[To be documented]
+.TP
+.BR BPF_OBJ_GET_INFO_BY_FD " (since Linux 4.13)
+[To be documented]
+.TP
+.BR BPF_PROG_QUERY " (since Linux 4.15)
+[To be documented]
+.TP
+.BR BPF_RAW_TRACEPOINT_OPEN " (since Linux 4.17)
+[To be documented]
+.TP
+.BR BPF_BTF_LOAD " (since Linux 4.18)
+[To be documented]
 .PP
 The
 .I bpf_attr
