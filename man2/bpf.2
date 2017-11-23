@@ -1378,11 +1378,17 @@ are only available if option
 .BR CONFIG_CGROUP_BPF
 was selected.
 .PP
-In the current implementation, all
+In the current implementation, most
 .BR bpf ()
 commands require the caller to have the
 .B CAP_SYS_ADMIN
-capability.
+capability. Exceptions are programs of types
+.BR BPF_PROG_TYPE_SOCKET_FILTER
+and
+.BR BPF_PROG_TYPE_CGROUP_SKB ,
+that can be attached by normal users, unless an administrator prevents
+them to do so by writing 1 (integer string) to the file
+.IR /proc/sys/kernel/unprivileged_bpf_disabled .
 .PP
 eBPF objects (maps and programs) can be shared between processes.
 For example, after
