@@ -228,10 +228,28 @@ commands:
 union bpf_attr {
     struct {    /* Used by BPF_MAP_CREATE */
         __u32         map_type;
-        __u32         key_size;    /* size of key in bytes */
-        __u32         value_size;  /* size of value in bytes */
-        __u32         max_entries; /* maximum number of entries
-                                      in a map */
+        __u32         key_size;      /* size of key in bytes */
+        __u32         value_size;    /* size of value in bytes */
+        __u32         max_entries;   /* maximum number of entries
+                                        in a map */
+        __u32         map_flags;     /* BPF_MAP_CREATE related
+                                        flags, see below */
+.\" FIXME flags
+                                        (since Linux 4.6) */
+.\"     commit 6c90598174322b8888029e40dd84a4eb01f56afe
+        __u32         inner_map_fd;  /* fd pointing to the inner map
+                                        (since Linux 4.12) */
+.\"     commit 56f668dfe00dcf086734f1c42ea999398fad6572
+        __u32         numa_node;     /* numa node (effective only if
+                                        BPF_F_NUMA_NODE is set).
+                                        (since Linux 4.12) */
+.\"     commit 96eabe7a40aa17e613cf3db2c742ee8b1fc764d0
+        char          map_name[BPF_OBJ_NAME_LEN];
+                                     /* (since Linux 4.15) */
+.\"     commit ad5b177bd73f5107d97c36f56395c4281fb6f089
+        __u32         map_ifindex    /* ifindex of netdev to create on
+                                        (since Linux 4.16) */
+.\"     commit a38845729ea3985db5d2544ec3ef3dc8f6313a27
     };
 
     struct {    /* Used by BPF_MAP_*_ELEM and BPF_MAP_GET_NEXT_KEY
@@ -248,17 +266,107 @@ union bpf_attr {
     struct {    /* Used by BPF_PROG_LOAD */
         __u32         prog_type;
         __u32         insn_cnt;
-        __aligned_u64 insns;      /* 'const struct bpf_insn *' */
-        __aligned_u64 license;    /* 'const char *' */
-        __u32         log_level;  /* verbosity level of verifier */
-        __u32         log_size;   /* size of user buffer */
-        __aligned_u64 log_buf;    /* user supplied 'char *'
-                                     buffer */
+        __aligned_u64 insns;         /* 'const struct bpf_insn *' */
+        __aligned_u64 license;       /* 'const char *' */
+        __u32         log_level;     /* verbosity level of verifier */
+        __u32         log_size;      /* size of user buffer */
+        __aligned_u64 log_buf;       /* user supplied 'char *'
+                                        buffer */
         __u32         kern_version;
-                                  /* checked when prog_type=kprobe
-                                     (since Linux 4.1) */
-.\"                 commit 2541517c32be2531e0da59dfd7efc1ce844644f5
+                                     /* checked when prog_type=kprobe
+                                        (since Linux 4.1) */
+.\"     commit 2541517c32be2531e0da59dfd7efc1ce844644f5
+        __u32         prog_flags;    /* BPF_PROG_LOAD related
+                                        flags, See below
+                                        (since Linux 4.12) */
+.\" FIXME flags
+.\"     commit e07b98d9bffe410019dfcf62c3428d4a96c56a2c
+        char          prog_name[BPF_OBJ_NAME_LEN];
+                                     /* (since Linux 4.15) */
+.\"     commit ad5b177bd73f5107d97c36f56395c4281fb6f089
+        __u32         prog_target_ifindex;   /* ifindex of netdev to
+                                                prep for
+                                                (since Linux 4.15) */
+.\"     commit 1f6f4cb7ba219b00a3fa9afe8049fa16444d8b52
+        __u32         expected_attach_type;  /* (since Linux 4.17) */
+.\"     commit 5e43f899b03a3492ce5fc44e8900becb04dae9c0
     };
+
+    struct {    /* Used by BPF_OBJ_PIN and BPF_OBJ_GET commands */
+        __aligned_u64 pathname;      /* (since Linux 4.4) */
+        __u32         bpf_fd;        /* (since Linux 4.4) */
+.\"     commit b2197755b2633e164a439682fb05a9b5ea48f706
+        __u32         file_flags;    /* (since Linux 4.15) */
+.\" FIXME flags
+.\"     commit 6e71b04a82248ccf13a94b85cbc674a9fefe53f5
+    };
+
+    struct {    /* Used by BPF_PROG_ATTACH/DETACH commands
+                   (since Linux 4.10) */
+        __u32         target_fd;     /* container object to attach to */
+        __u32         attach_bpf_fd; /* eBPF program to attach */
+        __u32         attach_type;
+.\"     commit f4324551489e8781d838f941b7aee4208e52e8bf
+        __u32         attach_flags;
+.\" FIXME flags
+.\"     commit 7f677633379b4abb3281cdbe7e7006f049305c03
+    };
+
+    struct {    /* Used by BPF_PROG_TEST_RUN
+                   (since Linux 4.12) */
+        __u32         prog_fd;
+        __u32         retval;
+        __u32         data_size_in;
+        __u32         data_size_out;
+        __aligned_u64 data_in;
+        __aligned_u64 data_out;
+        __u32         repeat;
+        __u32         duration;
+    } test;
+.\" commit 7f677633379b4abb3281cdbe7e7006f049305c03
+
+    struct {    /* Used by BPF_*_GET_*_ID commands */
+        union {
+            __u32         start_id;      /* (since Linux 4.13) */
+            __u32         prog_id;       /* (since Linux 4.13) */
+.\"         commit b16d9aa4c2b90af8d2c3201e245150f8c430c3bc
+            __u32         map_id;        /* (since Linux 4.13) */
+        };
+        __u32         next_id;       /* (since Linux 4.13) */
+.\"     commit 34ad5580f8f9c86cb273ebea25c149613cd1667e
+        __u32         open_flags;    /* (since Linux 4.15) */
+.\" FIXME flags
+.\"     commit 6e71b04a82248ccf13a94b85cbc674a9fefe53f5
+    };
+
+    struct {    /* Used by BPF_OBJ_GET_INFO_BY_FD
+                   (since Linux 4.13) */
+        __u32         bpf_fd;
+        __u32         info_len;
+        __aligned_u64 info;
+    } info;
+.\" commit 1e270976908686ec25fb91b8a34145be54137976
+
+    struct {    /* Used by BPF_PROG_QUERY
+                   (since Linux 4.15) */
+        __u32         target_fd;     /* container object to query */
+        __u32         attach_type;
+        __u32         query_flags;
+.\" FIXME flags
+        __u32         attach_flags;
+.\" FIXME flags
+        __aligned_u64 prog_ids;
+        __u32         prog_cnt;
+    } query;
+.\" commit 468e2f64d220fe2dc11caa2bcb9b3a1e50fc7321
+
+    struct {    /* Used by BPF_RAW_TRACEPOINT_OPEN
+                   (since Linux 4.17) */
+        __u64         name;
+        __u32         prog_fd;
+    } raw_tracepoint;
+.\" commit c4f6699dfcb8558d138fe838f741b2c10f416cf9
+
 } __attribute__((aligned(8)));
 .EE
 .in
