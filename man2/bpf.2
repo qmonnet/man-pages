@@ -756,6 +756,20 @@ enum bpf_prog_type {
     BPF_PROG_TYPE_KPROBE,
     BPF_PROG_TYPE_SCHED_CLS,
     BPF_PROG_TYPE_SCHED_ACT,
+    BPF_PROG_TYPE_TRACEPOINT,
+    BPF_PROG_TYPE_XDP,
+    BPF_PROG_TYPE_PERF_EVENT,
+    BPF_PROG_TYPE_CGROUP_SKB,
+    BPF_PROG_TYPE_CGROUP_SOCK,
+    BPF_PROG_TYPE_LWT_IN,
+    BPF_PROG_TYPE_LWT_OUT,
+    BPF_PROG_TYPE_LWT_XMIT,
+    BPF_PROG_TYPE_SOCK_OPS,
+    BPF_PROG_TYPE_SK_SKB,
+    BPF_PROG_TYPE_CGROUP_DEVICE,
+    BPF_PROG_TYPE_SK_MSG,
+    BPF_PROG_TYPE_RAW_TRACEPOINT,
+    BPF_PROG_TYPE_CGROUP_SOCK_ADDR,
 };
 .EE
 .in
@@ -901,6 +915,90 @@ argument is a pointer to a
 .BR BPF_PROG_TYPE_SCHED_ACT " (since Linux 4.1)"
 .\" commit 94caee8c312d96522bcdae88791aaa9ebcd5f22c
 .\" commit a8cb5f556b567974d75ea29c15181c445c541b1f
+[To be documented]
+.\" FIXME Document this program type
+.\"	  Describe allowed helper functions for this program type
+.\"	  Describe bpf_context for this program type
+.TP
+.BR BPF_PROG_TYPE_TRACEPOINT " (since Linux 4.7)
+[To be documented]
+.\" FIXME Document this program type
+.\"	  Describe allowed helper functions for this program type
+.\"	  Describe bpf_context for this program type
+.TP
+.BR BPF_PROG_TYPE_XDP " (since Linux 4.8)
+[To be documented]
+.\" FIXME Document this program type
+.\"	  Describe allowed helper functions for this program type
+.\"	  Describe bpf_context for this program type
+.TP
+.BR BPF_PROG_TYPE_PERF_EVENT " (since Linux 4.9)
+[To be documented]
+.\" FIXME Document this program type
+.\"	  Describe allowed helper functions for this program type
+.\"	  Describe bpf_context for this program type
+.TP
+.BR BPF_PROG_TYPE_CGROUP_SKB " (since Linux 4.10)
+[To be documented]
+.\" FIXME Document this program type
+.\"	  Describe allowed helper functions for this program type
+.\"	  Describe bpf_context for this program type
+.TP
+.BR BPF_PROG_TYPE_CGROUP_SOCK " (since Linux 4.10)
+[To be documented]
+.\" FIXME Document this program type
+.\"	  Describe allowed helper functions for this program type
+.\"	  Describe bpf_context for this program type
+.TP
+.BR BPF_PROG_TYPE_LWT_IN " (since Linux 4.10)
+[To be documented]
+.\" FIXME Document this program type
+.\"	  Describe allowed helper functions for this program type
+.\"	  Describe bpf_context for this program type
+.TP
+.BR BPF_PROG_TYPE_LWT_OUT " (since Linux 4.10)
+[To be documented]
+.\" FIXME Document this program type
+.\"	  Describe allowed helper functions for this program type
+.\"	  Describe bpf_context for this program type
+.TP
+.BR BPF_PROG_TYPE_LWT_XMIT " (since Linux 4.10)
+[To be documented]
+.\" FIXME Document this program type
+.\"	  Describe allowed helper functions for this program type
+.\"	  Describe bpf_context for this program type
+.TP
+.BR BPF_PROG_TYPE_SOCK_OPS " (since Linux 4.13)
+[To be documented]
+.\" FIXME Document this program type
+.\"	  Describe allowed helper functions for this program type
+.\"	  Describe bpf_context for this program type
+.TP
+.BR BPF_PROG_TYPE_SK_SKB " (since Linux 4.14)
+[To be documented]
+.\" FIXME Document this program type
+.\"	  Describe allowed helper functions for this program type
+.\"	  Describe bpf_context for this program type
+.TP
+.BR BPF_PROG_TYPE_CGROUP_DEVICE " (since Linux 4.15)
+[To be documented]
+.\" FIXME Document this program type
+.\"	  Describe allowed helper functions for this program type
+.\"	  Describe bpf_context for this program type
+.TP
+.BR BPF_PROG_TYPE_SK_MSG " (since Linux 4.17)
+[To be documented]
+.\" FIXME Document this program type
+.\"	  Describe allowed helper functions for this program type
+.\"	  Describe bpf_context for this program type
+.TP
+.BR BPF_PROG_TYPE_RAW_TRACEPOINT " (since Linux 4.17)
+[To be documented]
+.\" FIXME Document this program type
+.\"	  Describe allowed helper functions for this program type
+.\"	  Describe bpf_context for this program type
+.TP
+.BR BPF_PROG_TYPE_CGROUP_SOCK_ADDR " (since Linux 4.17)
 [To be documented]
 .\" FIXME Document this program type
 .\"	  Describe allowed helper functions for this program type
