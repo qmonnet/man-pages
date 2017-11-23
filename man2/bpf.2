@@ -1405,7 +1405,7 @@ referring to the object have been closed.
 .PP
 eBPF programs can be written in a restricted C that is compiled (using the
 .B clang
-compiler) into eBPF bytecode.
+compiler, in its version 3.7 or higher) into eBPF bytecode.
 Various features are omitted from this restricted C, such as loops,
 global variables, variadic functions, floating-point numbers,
 and passing structures as function arguments.
@@ -1416,6 +1416,14 @@ directory, or in the
 files, all of them in the kernel source tree.
 .\" There are also examples for the tc classifier, in the iproute2
 .\" project, in examples/bpf
+Currently, the most basic command line permitting to compile from C
+looks like this:
+.PP
+.in +4n
+.EX
+clang -O2 -emit-llvm -c <c_source_code.c> -o - | \
+llc -march=bpf -filetype=obj -o <object_file.o>
+.EE
 .PP
 The kernel contains a just-in-time (JIT) compiler that translates
 eBPF bytecode into native machine code for better performance.
